@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.llkj.retire.manage.mapper.PermissionMapper">
+    <!-- 查询账号拥有的权限 -->
+    <select id="queryPermissionInfoByAccId" resultType="com.llkj.retire.manage.mapper.Permission">
+        SELECT
+          d.Perm_ID permId,
+          d.Perm_Parent parentId,
+          d.Perm_Name permName,
+          d.Perm_Code permCode,
+          d.Perm_Resource permResource,
+          d.Perm_Route_Name permRouteName,
+          d.Perm_Icon permIcon,
+          d.Perm_Icon_Sel permIconSel,
+          d.Perm_Sort permSort,
+          d.Perm_Type permType,
+          d.Perm_Status permStatus,
+          d.Perm_Anonymous permAnonymous,
+          d.Perm_Desc permDesc
+        FROM
+          pt_account_has_role a
+        LEFT JOIN
+          pt_role b
+        ON
+          a.Role_ID = b.Role_ID
+        LEFT JOIN
+          pt_role_has_permission c
+        ON
+          b.Role_ID = c.Role_ID
+        LEFT JOIN
+          (SELECT * FROM pt_permission WHERE Perm_Status = 1) d
+        ON
+          c.Perm_ID = d.Perm_ID
+        WHERE
+          d.Perm_Platform = 1
+      <!--  <if test="accId != null and accId != ''">
+        	AND
+            a.Acc_ID = #{accId}
+        </if>-->
+        AND
+        a.Acc_ID = #{accId}
+        UNION
+        SELECT
+          f.Perm_ID permId,
+          f.Perm_Parent parentId,
+          f.Perm_Name permName,
+          f.Perm_Code permCode,
+          f.Perm_Resource permResource,
+          f.Perm_Route_Name permRouteName,
+          f.Perm_Icon permIcon,
+          f.Perm_Icon_Sel permIconSel,
+          f.Perm_Sort permSort,
+          f.Perm_Type permType,
+          f.Perm_Status permStatus,
+          f.Perm_Anonymous permAnonymous,
+          f.Perm_Desc permDesc
+        FROM
+          pt_account_has_permission e
+        LEFT JOIN
+          (SELECT * FROM pt_permission WHERE Perm_Status = 1) f
+        ON
+          e.Perm_ID = f.Perm_ID
+        WHERE
+          f.Perm_Platform = 1
+       <!-- <if test="accId != null and accId != ''">
+            AND
+            e.Acc_ID = #{accId}
+        </if>-->
+
+        AND
+        e.Acc_ID = #{accId}
+
+        ORDER BY
+          permSort desc
+        limit 1
+    </select>
+
+    <!-- 查询账号-权限信息 -->
+    <select id="queryAccHasPermission" parameterType="java.lang.String" resultType="com.llkj.retire.manage.mapper.Permission">
+        SELECT
+          b.Perm_ID permId,
+          b.Perm_Parent parentId,
+          b.Perm_Name permName,
+          b.Perm_Code permCode,
+          b.Perm_Resource permResource,
+          b.Perm_Route_Name permRouteName,
+          b.Perm_Icon permIcon,
+          b.Perm_Icon_Sel permIconSel,
+          b.Perm_Sort permSort,
+          b.Perm_Type permType,
+          b.Perm_Status permStatus,
+          b.Perm_Anonymous permAnonymous,
+          b.Perm_Desc permDesc
+        FROM
+          pt_account_has_permission a
+        LEFT JOIN
+          (SELECT * FROM pt_permission WHERE Perm_Status = 1) b
+        ON
+          a.Perm_ID = b.Perm_ID
+        WHERE
+          b.Perm_Platform = 1
+        AND
+          a.Acc_ID = #{accId}
+    </select>
+
+    <!-- 查询权限申请订单-权限信息 -->
+    <select id="queryOrderHasPermission" parameterType="java.lang.String" resultType="com.llkj.retire.manage.mapper.Permission">
+        SELECT
+          b.Perm_ID permId,
+          b.Perm_Parent parentId,
+          b.Perm_Name permName,
+          b.Perm_Code permCode,
+          b.Perm_Resource permResource,
+          b.Perm_Route_Name permRouteName,
+          b.Perm_Icon permIcon,
+          b.Perm_Icon_Sel permIconSel,
+          b.Perm_Sort permSort,
+          b.Perm_Type permType,
+          b.Perm_Status permStatus,
+          b.Perm_Anonymous permAnonymous,
+          b.Perm_Desc permDesc
+        FROM
+          pt_order_has_permission a
+        LEFT JOIN
+          (SELECT * FROM pt_permission WHERE Perm_Status = 1) b
+        ON
+          a.Perm_ID = b.Perm_ID
+        WHERE
+          b.Perm_Platform = 1
+        AND
+          a.Order_ID = #{orderId}
+    </select>
+
+    <!-- 查询账号-权限ID集合 -->
+    <select id="queryAccHasPermIds" parameterType="java.lang.String" resultType="java.lang.String">
+        SELECT
+          a.Perm_ID
+        FROM
+          pt_account_has_permission a
+        LEFT JOIN
+          (SELECT * FROM pt_permission WHERE Perm_Status = 1) b
+        ON
+          a.Perm_ID = b.Perm_ID
+        WHERE
+          b.Perm_Platform = 1
+        AND
+          a.Acc_ID = #{accId}
+    </select>
+
+    <!-- 查询账号角色-权限ID集合 -->
+    <select id="queryRoleHasPermIdsByAcc" parameterType="java.lang.String" resultType="java.lang.String">
+        SELECT
+          c.Perm_ID
+        FROM
+          pt_account_has_role a
+        LEFT JOIN
+          pt_role b
+        ON
+          a.Role_ID = b.Role_ID
+        LEFT JOIN
+          pt_role_has_permission c
+        ON
+          b.Role_ID = c.Role_ID
+        LEFT JOIN
+          (SELECT * FROM pt_permission WHERE Perm_Status = 1) d
+        ON
+          c.Perm_ID = d.Perm_ID
+        WHERE
+          d.Perm_Platform = 1
+        AND
+          a.Acc_ID = #{accId}
+    </select>
+
+    <!-- 查询角色-权限ID集合 -->
+    <select id="queryRoleHasPermIds" parameterType="java.lang.String" resultType="java.lang.String">
+        SELECT
+          Perm_ID
+        FROM
+          pt_role_has_permission
+        WHERE
+          Role_ID = #{roleId}
+    </select>
+
+    <!-- 查询角色拥有的权限 -->
+    <select id="queryPermissionInfoByRoleId" resultType="com.llkj.retire.manage.mapper.Permission">
+        SELECT
+          b.Perm_ID permId,
+          b.Perm_Parent parentId,
+          b.Perm_Name permName,
+          b.Perm_Code permCode,
+          b.Perm_Resource permResource,
+          b.Perm_Route_Name permRouteName,
+          b.Perm_Icon permIcon,
+          b.Perm_Icon_Sel permIconSel,
+          b.Perm_Sort permSort,
+          b.Perm_Type permType,
+          b.Perm_Status permStatus,
+          b.Perm_Anonymous permAnonymous,
+          b.Perm_Desc permDesc
+        FROM
+          pt_role_has_permission a
+        LEFT JOIN
+          pt_permission b
+        ON
+          a.Perm_ID = b.Perm_ID
+        WHERE
+          a.Role_ID = #{roleId}
+        ORDER BY
+          permSort
+    </select>
+
+    <!-- 查询申请的权限 -->
+    <select id="queryPermissionInfoByOrderId" resultType="com.llkj.retire.manage.mapper.Permission">
+        SELECT
+          b.Perm_ID permId,
+          b.Perm_Parent parentId,
+          b.Perm_Name permName,
+          b.Perm_Code permCode,
+          b.Perm_Resource permResource,
+          b.Perm_Route_Name permRouteName,
+          b.Perm_Icon permIcon,
+          b.Perm_Icon_Sel permIconSel,
+          b.Perm_Sort permSort,
+          b.Perm_Type permType,
+          b.Perm_Status permStatus,
+          b.Perm_Anonymous permAnonymous,
+          b.Perm_Desc permDesc
+        FROM
+          pt_order_has_permission a
+        LEFT JOIN
+          pt_permission b
+        ON
+          a.Perm_ID = b.Perm_ID
+        WHERE
+          a.Order_ID = #{orderId}
+        ORDER BY
+          permSort
+    </select>
+
+    <!-- 查询所有权限信息 -->
+    <select id="queryAllPermissionInfo" resultType="com.llkj.retire.manage.mapper.Permission">
+         SELECT
+          Perm_ID permId,
+          Perm_Parent parentId,
+          Perm_Name permName,
+          Perm_Code permCode,
+          Perm_Resource permResource,
+          Perm_Route_Name permRouteName,
+          Perm_Icon permIcon,
+          Perm_Icon_Sel permIconSel,
+          Perm_Sort permSort,
+          Perm_Type permType,
+          Perm_Status permStatus,
+          Perm_Anonymous permAnonymous
+        FROM
+          pt_permission
+        WHERE
+          Perm_Status = 1
+        ORDER BY
+          Perm_Sort
+    </select>
+
+
+
+    <!-- 查询权限申请订单-权限ID集合 -->
+    <select id="queryOrderHasPermIds" parameterType="java.lang.String" resultType="java.lang.String">
+        SELECT
+          Perm_ID
+        FROM
+          pt_order_has_permission
+        WHERE
+          Order_ID = #{orderId}
+    </select>
+</mapper>
