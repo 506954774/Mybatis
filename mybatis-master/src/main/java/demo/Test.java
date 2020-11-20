@@ -13,10 +13,10 @@ import java.util.Properties;
 
 /**
  * Test
- * 责任人:  Chuck
- * 修改人： Chuck
- * 创建/修改时间: 2020/11/18 12:18
- * Copyright :  版权所有
+ * 锟斤拷锟斤拷锟斤拷:  Chuck
+ * 锟睫革拷锟剿ｏ拷 Chuck
+ * 锟斤拷锟斤拷/锟睫革拷时锟斤拷: 2020/11/18 12:18
+ * Copyright :  锟斤拷权锟斤拷锟斤拷
  **/
 
 public class Test {
@@ -35,7 +35,8 @@ public class Test {
 
         } catch ( Exception exc) {
              //com.mysql.jdbc.Driver A;
-            System.out.println("异常 = [" + exc + "]");
+            System.out.println("寮傚父 = [" + exc + "]");
+
         }
 
     }
