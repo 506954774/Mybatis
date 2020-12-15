@@ -12,11 +12,7 @@ import java.util.List;
 import java.util.Properties;
 
 /**
- * Test
- * ������:  Chuck
- * �޸��ˣ� Chuck
- * ����/�޸�ʱ��: 2020/11/18 12:18
- * Copyright :  ��Ȩ����
+
  **/
 
 public class Test {

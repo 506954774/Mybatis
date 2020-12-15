@@ -1,6 +1,14 @@
 package demo.proxy;
 
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+
+import java.io.InputStream;
 import java.lang.reflect.Proxy;
+import java.util.Currency;
+import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * SqlSession
@@ -11,7 +19,15 @@ import java.lang.reflect.Proxy;
  **/
 public class SqlSession {
 
-    public static Object getMapper(Class clazz) {
-        return Proxy.newProxyInstance(SqlSession.class.getClassLoader(),new Class[]{clazz},new MapperProxy());
+    public static Object getMapper(Class clazz) throws Exception{
+
+        String resource = "META-INF/mybatis.xml";
+        InputStream inputStream = Resources.getResourceAsStream(resource);
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+        org.apache.ibatis.session.SqlSession sqlSession=sqlSessionFactory.openSession();
+
+
+
+        return Proxy.newProxyInstance(SqlSession.class.getClassLoader(),new Class[]{clazz},new MapperProxy(sqlSession,clazz,new ConcurrentHashMap<>()));
     }
 }
