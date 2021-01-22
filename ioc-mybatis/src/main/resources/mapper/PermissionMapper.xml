@@ -271,4 +271,13 @@
         WHERE
           Order_ID = #{orderId}
     </select>
+
+    <!-- 修改权限名称 -->
+    <update id="updatePermissionByPermId" parameterType="java.lang.String"  >
+        update
+          pt_permission
+        set Perm_Name =#{permName}
+        WHERE
+          Perm_ID = #{permId}
+    </update>
 </mapper>

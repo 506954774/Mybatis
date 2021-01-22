@@ -42,8 +42,13 @@
 
 
     <mappers>
+
+        <mapper resource="mapper/PermissionMapper.xml"/>
         <mapper  class="com.example.iocmybatis.mapper.Permission2Mapper" />
-        <mapper  class="com.example.iocmybatis.mapper.PermissionMapper" />
-       <!-- <mapper  url="com.llkj.retire.manage.mapper\PermissionMapper.xml" />-->
+
+       <!-- <package  name="com.example.iocmybatis.mapper"  />-->
+       <!-- <mapper  class="com.example.iocmybatis.mapper.Permission2Mapper" />
+        <mapper  class="com.example.iocmybatis.mapper.PermissionMapper" />-->
+
     </mappers>
 </configuration>

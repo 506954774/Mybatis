@@ -24,22 +24,27 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class XmlMapperCustomProxy implements InvocationHandler {
 
+
+    private SqlSessionFactory sqlSessionFactory;
+
+
     //如果需要什么参数，客户端传过来
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 
         try {
-            String resource = "META-INF/mybatis.xml";
-            InputStream inputStream = Resources.getResourceAsStream(resource);
-            SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream );
+            if(sqlSessionFactory==null){
+                String resource = "META-INF/mybatis.xml";
+                InputStream inputStream = Resources.getResourceAsStream(resource);
+                sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream );
+            }
+
 
             SqlSession sqlSession=sqlSessionFactory.openSession();
 
-            String className=proxy.getClass().getCanonicalName();
+            String className=method.getDeclaringClass().getName();
             String methodName=method.getName();
-            className =method.getClass().getName();
-            className =method.getDeclaringClass().getName();
             Class<?> returnType = method.getReturnType();
             if(returnType ==List.class){
 

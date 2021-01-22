@@ -7,6 +7,7 @@ import com.llkj.retire.manage.mapper.Permission;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
 
 /**
@@ -50,4 +52,17 @@ public class IocTestAction  {
     }
 
 
+    @ApiOperation(value = "修改权限名称", notes = "修改权限名称")
+    @GetMapping("/test/xml/modify_perm_name")
+    public ResponseEntity modifyPermName(
+            @ApiParam(name = "permName", value = "新的权限名称", required = true)
+            @RequestParam(value = "permName") String permName
+
+    ) {
+
+        permissionMapper.updatePermissionByPermId(permName,"e52m5FlW1CFVG3pOaNfEyhQdyQEjlFL8");
+        ResponseEntity responseEntity= new ResponseEntity<Boolean>(true);
+        responseEntity.setResult(true);
+        return responseEntity;
+    }
 }

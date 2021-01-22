@@ -29,46 +29,38 @@ public class BeanInstantionAwearPost implements InstantiationAwareBeanPostProces
     public Object postProcessBeforeInstantiation(Class<?> beanClass, String beanName) throws BeansException {
 
 
-        //mybatis先会把这些mapper接口的全路径记录下来，然后批量加入到类定义map里
-        BeanDefinitionOverwriter.MybatisMappperType[] mybatisMappers={
-                new BeanDefinitionOverwriter.MybatisMappperType("com.example.iocmybatis.mapper.Permission2Mapper",false),
-                new BeanDefinitionOverwriter.MybatisMappperType("com.example.iocmybatis.mapper.PermissionMapper",true),
-        };
-
-
-        for(BeanDefinitionOverwriter.MybatisMappperType mapper:mybatisMappers){
-
-
+        for(BeanDefinitionOverwriter.MybatisMappperType mapper:BeanDefinitionOverwriter.mybatisMappers){
 
             //匹配到了，就使用动态代理，返回代理对象
             if(beanName.equals(BeanDefinitionOverwriter.getBeanNameByClassName(mapper.className))){
-                if(mapper.isXmlMapper){
-                    //xml,则手写代理。代理类会拿到解析到的sql，然后调用jdbc
+                //直接使用mybatis里面的代理逻辑。他的getmapper方法返回一个动态代理对象。实际的方法执行类里需要sqlsession
+                try {
+                    return SqlSession.getMapper(Class.forName(mapper.className));
+                } catch (Exception e) {
+
+                }
+
+               /* if(mapper.isXmlMapper){
+                    //完全可以自己手写代理。代理类会拿到解析到的sql，根据不同类型的sql，执行不同的逻辑：增删改查,然后封装成结果
                     try {
-                        return  Proxy.newProxyInstance(BeanInstantionAwearPost.class.getClassLoader(), new Class[] { Class.forName(mapper.className) },
+                        return     Proxy.newProxyInstance(
+                                BeanInstantionAwearPost.class.getClassLoader(),
+                                new Class[] { Class.forName(mapper.className) },
                                 new XmlMapperCustomProxy ());
                     } catch (Exception e) {
                     }
                 }
                 else {
-                    //注解实现的方法，则直接使用mybatis里面的代理逻辑。他的getmapper方法返回一个动态代理对象。实际的方法执行类里需要sqlsession
+                    //也可以直接使用mybatis里面的代理逻辑（缓存策略等）。他的getmapper方法返回一个动态代理对象。实际的方法执行类里需要sqlsession
                     try {
                         return SqlSession.getMapper(Class.forName(mapper.className));
                     } catch (Exception e) {
 
                     }
-                }
+                }*/
             }
         }
 
-       /* if(beanName.equals("permission2Mapper")){
-            //手写代理，模拟mybatis的操作，demo.proxy.SqlSession是我自己写的类。他的getmapper方法返回一个动态代理对象。实际的方法执行类里需要sqlsession
-            try {
-                return SqlSession.getMapper(Permission2Mapper.class);
-            } catch (Exception e) {
-
-            }
-        }*/
 
         return null;//返回空，则会按类定义去实例化bean
     }

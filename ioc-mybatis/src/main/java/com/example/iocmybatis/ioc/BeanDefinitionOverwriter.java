@@ -22,6 +22,13 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public class BeanDefinitionOverwriter implements BeanDefinitionRegistryPostProcessor {
 
+    public static BeanDefinitionOverwriter.MybatisMappperType[] mybatisMappers={
+            new BeanDefinitionOverwriter.MybatisMappperType("com.example.iocmybatis.mapper.Permission2Mapper",false),
+            new BeanDefinitionOverwriter.MybatisMappperType("com.example.iocmybatis.mapper.PermissionMapper",true),
+    };
+
+
+
     @SneakyThrows
     @Override
     public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry beanDefinitionRegistry) throws BeansException {
@@ -36,17 +43,10 @@ public class BeanDefinitionOverwriter implements BeanDefinitionRegistryPostProce
             }
         }*/
 
-        //mybatis先会把这些mapper接口的全路径记录下来，然后批量加入到类定义map里
-        MybatisMappperType [] mybatisMappers={
-                new MybatisMappperType("com.example.iocmybatis.mapper.Permission2Mapper",false),
-                new MybatisMappperType("com.example.iocmybatis.mapper.PermissionMapper",true),
-        };
 
-
-        for(MybatisMappperType mapper:mybatisMappers){
+        for(MybatisMappperType mapper:BeanDefinitionOverwriter.mybatisMappers){
             //下面这个类定义，其实是个无效的类定义，因为它是一个接口，没有实例的接口。我们可以通过类实例化的后置处理器去构建bean的实例，这样就会直接使用我们提供的实例（动态代理），而不是框架的反射
             BeanDefinitionBuilder b= BeanDefinitionBuilder.rootBeanDefinition(Class.forName(mapper.className).getClass());
-
             String beanName = getBeanNameByClassName(mapper.className);
             log.info("==================================beanName:{}",beanName);
             beanDefinitionRegistry.registerBeanDefinition(beanName,b.getBeanDefinition());//首字母小写

@@ -82,4 +82,16 @@ public interface PermissionMapper {
      * @return
      */
     List<String> queryOrderHasPermIds(String orderId);
+
+   /**
+    * @method name:
+    * @des:  修改权限名称
+    * @param :
+    * @return type:
+    * @date 创建时间:2021/1/22
+    * @version 1.0.0
+    * @author Chuck
+    **/
+
+    void updatePermissionByPermId(@Param("permName") String permName,@Param("permId") String permId);
 }
