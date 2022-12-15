@@ -32,7 +32,7 @@ public class AnotationTest {
             Permission2Mapper mapper = sqlSession.getMapper(Permission2Mapper.class);
 
 
-            List<Permission> permission=mapper.queryPermissionInfoByAccId(  "b5b476bdee704495902303d443d18996");
+            List<Permission> permission=mapper.queryPermissionByParentId(  "1100");
 
             System.out.println("permission = [" + permission + "]");
 

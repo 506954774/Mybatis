@@ -24,7 +24,7 @@ public class ProxyTest {
             Permission2Mapper mapper = (Permission2Mapper) demo.proxy.SqlSession.getMapper(Permission2Mapper.class);
 
             //调用这个，实际会走代理类的demo.proxy.MapperProxy.invoke
-            List<Permission> permission = mapper.queryPermissionInfoByAccId("b5b476bdee704495902303d443d18996");
+            List<Permission> permission = mapper.queryPermissionByParentId("1100");
 
             System.out.println("permission = [" + permission + "]");
 

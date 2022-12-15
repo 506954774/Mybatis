@@ -14,84 +14,9 @@ xml配置方式
 public interface PermissionMapper {
 
     /**
-     * 查询账号拥有的权限
-     * @param accId
+     * 根据父级id查询菜单集合
+     * @param parentId
      * @return
      */
-    List<Permission> queryPermissionInfoByAccId(@Param("accId") String accId);
-
-    /**
-     * 查询账号-权限信息
-     * @param accId
-     * @return
-     */
-    List<Permission> queryAccHasPermission(String accId);
-
-    /**
-     * 查询权限申请订单-权限信息
-     * @param orderId
-     * @return
-     */
-    List<Permission> queryOrderHasPermission(String orderId);
-
-    /**
-     * 查询账号-权限ID集合
-     * @param accId
-     * @return
-     */
-    List<String> queryAccHasPermIds(String accId);
-
-    /**
-     * 查询账号角色-权限ID集合
-     * @param accId
-     * @return
-     */
-    List<String> queryRoleHasPermIdsByAcc(String accId);
-
-    /**
-     * 查询角色-权限ID集合
-     * @param roleId
-     * @return
-     */
-    List<String> queryRoleHasPermIds(String roleId);
-
-    /**
-     * 查询角色拥有的权限
-     * @param roleId
-     * @return
-     */
-    List<Permission> queryPermissionInfoByRoleId(@Param("roleId") String roleId);
-
-    /**
-     * 查询申请的权限
-     * @param orderId
-     * @return
-     */
-    List<Permission> queryPermissionInfoByOrderId(@Param("orderId") String orderId);
-
-    /**
-     * 查询所有权限信息
-     * @return
-     */
-    List<Permission> queryAllPermissionInfo();
-
-
-    /**
-     * 查询权限申请订单-权限ID集合
-     * @param orderId
-     * @return
-     */
-    List<String> queryOrderHasPermIds(String orderId);
-
-   /**
-    * @method name:
-    * @des:  修改权限名称
-    * @param :
-    * @return type:
-    * @date 创建时间:2021/1/22
-    * @version 1.0.0
-    * @author Chuck
-    **/
-
-    void updatePermissionByPermId(@Param("permName") String permName,@Param("permId") String permId);
+    List<Permission> queryPermissionByParentId(@Param("parentId") String parentId);
 }

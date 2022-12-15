@@ -24,7 +24,7 @@ public class Test {
             SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream );
 
             SqlSession sqlSession=sqlSessionFactory.openSession();
-            List<Permission> permission=sqlSession.selectList("com.example.iocmybatis.mapper.PermissionMapper.queryPermissionInfoByAccId", "b5b476bdee704495902303d443d18996");
+            List<Permission> permission=sqlSession.selectList("com.example.iocmybatis.mapper.PermissionMapper.queryPermissionByParentId", "1100");
 
             System.out.println("permission = [" + permission + "]");
 

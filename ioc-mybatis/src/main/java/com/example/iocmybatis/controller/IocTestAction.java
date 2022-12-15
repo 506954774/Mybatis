@@ -35,7 +35,7 @@ public class IocTestAction  {
     @GetMapping("/test/anotation")
     public ResponseEntity testAnotationMapper() {
 
-        List<Permission> result = permission2Mapper.queryPermissionInfoByAccId("b5b476bdee704495902303d443d18996");
+        List<Permission> result = permission2Mapper.queryPermissionByParentId("1100");
         ResponseEntity responseEntity= new ResponseEntity<List<Permission>>(true);
         responseEntity.setResult(result);
         return responseEntity;
@@ -45,7 +45,7 @@ public class IocTestAction  {
     @GetMapping("/test/xml")
     public ResponseEntity testXmlMapper() {
 
-        List<Permission> result = permissionMapper.queryPermissionInfoByAccId("b5b476bdee704495902303d443d18996");
+        List<Permission> result = permissionMapper.queryPermissionByParentId("1100");
         ResponseEntity responseEntity= new ResponseEntity<List<Permission>>(true);
         responseEntity.setResult(result);
         return responseEntity;
@@ -60,7 +60,7 @@ public class IocTestAction  {
 
     ) {
 
-        permissionMapper.updatePermissionByPermId(permName,"e52m5FlW1CFVG3pOaNfEyhQdyQEjlFL8");
+        permissionMapper.queryPermissionByParentId( "1100");
         ResponseEntity responseEntity= new ResponseEntity<Boolean>(true);
         responseEntity.setResult(true);
         return responseEntity;
