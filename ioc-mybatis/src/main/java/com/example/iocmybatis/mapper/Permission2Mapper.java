@@ -25,7 +25,7 @@ public interface Permission2Mapper {
             "        sys_menu\n" +
             "        WHERE\n" +
             "        parent_id = #{parentId}"  )
-    List<Permission> queryPermissionByParentId(@Param("accId") String accId);
+    List<Permission> queryPermissionByParentId(@Param("parentId") String parentId);
 
 
 }
