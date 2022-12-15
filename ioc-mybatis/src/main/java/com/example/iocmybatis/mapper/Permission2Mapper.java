@@ -80,7 +80,7 @@ public interface Permission2Mapper {
             "        AND\n" +
             "        e.Acc_ID = #{accId}\n" +
             "\n" +
-            "        ORDER BY\n" +
+            "         ORDER BY\n" +
             "          permSort desc\n" +
             "        limit 1"  )
     List<Permission> queryPermissionInfoByAccId(@Param("accId") String accId);
