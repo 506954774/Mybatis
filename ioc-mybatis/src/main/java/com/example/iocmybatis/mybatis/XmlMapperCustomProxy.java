@@ -1,6 +1,5 @@
 package com.example.iocmybatis.mybatis;
 
-import com.llkj.retire.manage.mapper.Permission;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;

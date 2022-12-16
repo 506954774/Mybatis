@@ -1,10 +1,9 @@
-package com.llkj.retire.manage.mapper;
+package com.example.iocmybatis.model;
 
 
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 /**
  * Created by Jason on 2019/9/11.

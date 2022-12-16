@@ -1,7 +1,6 @@
 package com.example.iocmybatis;
 
-import com.llkj.retire.manage.mapper.Permission;
-
+import com.example.iocmybatis.model.Permission ;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -16,7 +15,7 @@ import java.util.List;
 
 public class Test {
 
-    public static void main(String[] args) {
+    public static void main2(String[] args) {
 
         try {
             String resource = "META-INF/mybatis.xml";

@@ -1,10 +1,9 @@
 package com.example.iocmybatis;
 
 
-
-import com.example.iocmybatis.mapper.Permission2Mapper;
 import com.example.iocmybatis.mapper.PermissionMapper;
-import com.llkj.retire.manage.mapper.Permission;
+import com.example.iocmybatis.mybatis.SqlSession;
+import com.example.iocmybatis.model.Permission ;
 
 import java.util.List;
 
@@ -17,12 +16,12 @@ import java.util.List;
  **/
 public class ProxyTest2 {
 
-    public static void main(String[] args) {
+    public static void main2(String[] args) {
 
         try {
 
             //手写代理，模拟mybatis的操作，demo.proxy.SqlSession是我自己写的类。他的getmapper方法返回一个动态代理对象。实际的方法执行类里需要sqlsession
-            PermissionMapper mapper = (PermissionMapper) demo.proxy.SqlSession.getMapper(PermissionMapper.class);
+            PermissionMapper mapper = (PermissionMapper)  SqlSession.getMapper(PermissionMapper.class);
 
             //调用这个，实际会走代理类的demo.proxy.MapperProxy.invoke
             List<Permission> permission = mapper.queryPermissionByParentId("1100");

@@ -3,7 +3,7 @@ package com.example.iocmybatis.controller;
 import com.example.iocmybatis.mapper.Permission2Mapper;
 import com.example.iocmybatis.mapper.PermissionMapper;
 import com.example.iocmybatis.model.ResponseEntity;
-import com.llkj.retire.manage.mapper.Permission;
+import com.example.iocmybatis.model.Permission;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

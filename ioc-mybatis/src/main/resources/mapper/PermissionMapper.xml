@@ -3,7 +3,7 @@
 <mapper namespace="com.example.iocmybatis.mapper.PermissionMapper">
 
     <!-- 根据父级id查询菜单集合 -->
-    <select id="queryPermissionByParentId" resultType="com.llkj.retire.manage.mapper.Permission">
+    <select id="queryPermissionByParentId" resultType="com.example.iocmybatis.model.Permission">
         SELECT
             name, permission
         FROM

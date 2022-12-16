@@ -2,8 +2,8 @@ package com.example.iocmybatis.mapper;
 
 
 
-import com.llkj.retire.manage.mapper.Permission;
 
+import com.example.iocmybatis.model.Permission;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 

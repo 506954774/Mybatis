@@ -8,7 +8,6 @@ import java.io.InputStream;
 import java.lang.reflect.Proxy;
 import java.util.concurrent.ConcurrentHashMap;
 
-import demo.proxy.MapperProxy;
 import lombok.extern.slf4j.Slf4j;
 
 /**
