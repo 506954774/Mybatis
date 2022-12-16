@@ -29,9 +29,13 @@ public class BeanDefinitionOverwriter implements BeanDefinitionRegistryPostProce
 
 
 
+    //此方法会在类定义结束后，调用一次。让开发者能添加bean或者去除bean
     @SneakyThrows
     @Override
     public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry beanDefinitionRegistry) throws BeansException {
+
+        log.info("==================================postProcessBeanDefinitionRegistry" );
+
 
         String [] beanDefinitionNames=beanDefinitionRegistry.getBeanDefinitionNames();
 
@@ -53,7 +57,7 @@ public class BeanDefinitionOverwriter implements BeanDefinitionRegistryPostProce
         }
 
         beanDefinitionNames=beanDefinitionRegistry.getBeanDefinitionNames();
-        log.info("BeanDefinitionOverwriter","注入灵魂!!!!");
+        log.info("BeanDefinitionOverwriter-注入灵魂!!!!");
 
     }
 

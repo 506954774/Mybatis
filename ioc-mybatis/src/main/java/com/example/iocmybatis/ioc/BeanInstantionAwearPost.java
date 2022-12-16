@@ -25,8 +25,10 @@ import lombok.extern.slf4j.Slf4j;
 @Configuration
 public class BeanInstantionAwearPost implements InstantiationAwareBeanPostProcessor {
 
+    //此方法会在每个bean的实例化后执行，有多少bean就执行多少次，此方法允许修改bean的实例
     @Override
     public Object postProcessBeforeInstantiation(Class<?> beanClass, String beanName) throws BeansException {
+        log.info("postProcessBeforeInstantiation==================================postProcessBeforeInstantiation" );
 
 
         for(BeanDefinitionOverwriter.MybatisMappperType mapper:BeanDefinitionOverwriter.mybatisMappers){

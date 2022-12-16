@@ -31,6 +31,15 @@ public class IocTestAction  {
     @Resource
     private PermissionMapper permissionMapper;
 
+    /**
+     * @Name:
+     * @Description: 注意，此项目并没有依赖mybatis-starter。此permission2Mapper并没有加@Mapper注解，完全是靠手动注入到ioc里面的
+     * @Param:
+     * @return:
+     * @Author: LeiChen
+     * @Date:2022/12/16 11:09
+     *
+     * */
     @ApiOperation(value = "测试spring ioc手动注入mapper，注解形式的mapper", notes = "测试spring ioc手动注入mapper，注解形式的mapper")
     @GetMapping("/test/anotation")
     public ResponseEntity testAnotationMapper() {
@@ -41,6 +50,15 @@ public class IocTestAction  {
         return responseEntity;
     }
 
+    /**
+     * @Name:
+     * @Description: 注意，此项目并没有依赖mybatis-starter。此permissionMapper并没有加@Mapper注解，完全是靠手动注入到ioc里面的
+     * @Param:
+     * @return:
+     * @Author: LeiChen
+     * @Date:2022/12/16 11:09
+     *
+     * */
     @ApiOperation(value = "测试spring ioc手动注入mapper，xml的mapper", notes = "测试spring ioc手动注入mapper，xml的mapper")
     @GetMapping("/test/xml")
     public ResponseEntity testXmlMapper() {
@@ -52,17 +70,5 @@ public class IocTestAction  {
     }
 
 
-    @ApiOperation(value = "修改权限名称", notes = "修改权限名称")
-    @GetMapping("/test/xml/modify_perm_name")
-    public ResponseEntity modifyPermName(
-            @ApiParam(name = "permName", value = "新的权限名称", required = true)
-            @RequestParam(value = "permName") String permName
 
-    ) {
-
-        permissionMapper.queryPermissionByParentId( "1100");
-        ResponseEntity responseEntity= new ResponseEntity<Boolean>(true);
-        responseEntity.setResult(true);
-        return responseEntity;
-    }
 }
